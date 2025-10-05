@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাটন ক্লিকে বিজ্ঞাপন প্রদর্শন (চূড়ান্ত)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 30px;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+        button {
+            padding: 12px 25px; 
+            margin: 15px 10px; 
+            font-size: 18px; 
+            cursor: pointer;
+            background-color: #4CAF50; 
+            color: white; 
+            border: none; 
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        /* * গুরুত্বপূর্ণ: বিজ্ঞাপনের স্লটের জন্য একটি নির্দিষ্ট আকার দিন। 
+         * এখানে একটি সাধারণ মোবাইল ব্যানার আকার (320x100) ব্যবহার করা হয়েছে। 
+         * AdExtra প্যানেল থেকে আপনার অ্যাডের সঠিক সাইজ জেনে নিন।
+         */
+        #baa8f557c334370eebb83a8dcb6121ba641c493e {
+            width: 320px; 
+            height: 100px; 
+            margin: 10px auto; 
+            background-color: #f0f0f0; /* লোড না হলে ফাঁকা জায়গাটা বোঝানোর জন্য */
+        }
+
+        /* বিজ্ঞাপনের কন্টেইনার, প্রাথমিকভাবে লুকিয়ে রাখা হলো */
+        #ad-container-wrapper {
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px dashed #ccc;
+            background-color: #f9f9f9;
+            display: none; /* প্রথমে এটিকে লুকানো থাকে */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>বিজ্ঞাপন দেখানোর জন্য যেকোনো একটি বাটনে ক্লিক করুন</h1>
+        <p>বাটনে ক্লিক করলেই বিজ্ঞাপন লোড হওয়ার জায়গাটি দৃশ্যমান হবে।</p>
+
+        <button id="button1">বাটন ১: অ্যাড লোড করুন</button>
+        <button id="button2">বাটন ২: অ্যাড লোড করুন</button>
+
+        <div id="ad-container-wrapper">
+            <p id="loading-message">**বিজ্ঞাপন লোড হচ্ছে...** (একটু অপেক্ষা করুন)</p>
+            
+            <div id="baa8f557c334370eebb83a8dcb6121ba641c493e"></div>
+        </div>
+    </div>
+    
+    <script async src="https://partner.adextra.io/jt/baa8f557c334370eebb83a8dcb6121ba641c493e.js"></script>
+
+    <script>
+        const adWrapper = document.getElementById('ad-container-wrapper');
+        const loadingMessage = document.getElementById('loading-message');
+        
+        function showAd() {
+            // বিজ্ঞাপনের কন্টেইনারটি দৃশ্যমান করো
+            adWrapper.style.display = 'block';
+            
+            // "লোড হচ্ছে" মেসেজটি দেখাও
+            loadingMessage.style.display = 'block';
+
+            // ৫ সেকেন্ড পর "লোড হচ্ছে" মেসেজটি লুকিয়ে দাও। 
+            // যদি ৫ সেকেন্ড পরেও বিজ্ঞাপন না আসে, তাহলে বুঝতে হবে সার্ভারের সমস্যা বা অ্যাড আইডি অ্যাক্টিভেশন বাকি।
+            setTimeout(() => {
+                 loadingMessage.style.display = 'none';
+            }, 5000); 
+        }
+
+        // বাটন ১ ও ২ এ ক্লিক ইভেন্ট যোগ
+        document.getElementById('button1').addEventListener('click', showAd);
+        document.getElementById('button2').addEventListener('click', showAd);
+    </script>
+</body>
+</html>
